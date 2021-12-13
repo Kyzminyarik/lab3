@@ -33,47 +33,48 @@ class SharedPtr {
   void reset();
   void reset(T* ptr);
   void swap(SharedPtr& r);
-  // возвращает количество объектов SharedPtr, которые ссылаются на тот же управляемый объект
+  // возвращает количество объектов SharedPtr,
+  // которые ссылаются на тот же управляемый объект
   [[nodiscard]] auto use_count() const -> size_t;
 };
 
 template<typename T>
-SharedPtr<T>::SharedPtr() {//конструктор по умолчанию
+SharedPtr<T>::SharedPtr() { //конструктор по умолчанию
   p= nullptr;
   count = nullptr;
 }
 
 template<typename T>
-SharedPtr<T>::SharedPtr(T *ptr) {//конструктор
+SharedPtr<T>::SharedPtr(T *ptr) { //конструктор
   p= ptr;
-  count = new std::atomic_uint{1};//при создании первого объекта создается счетчик ссылок
+  count = new std::atomic_uint{1}; //при создании первого объекта создается счетчик ссылок
 }
 
 template<typename T>
-SharedPtr<T>::SharedPtr(const SharedPtr&r) {//конструктор копирования
+SharedPtr<T>::SharedPtr(const SharedPtr&r) { //конструктор копирования
   count = nullptr;
   *this=r;
 }
 
 template<typename T>
-SharedPtr<T>::SharedPtr(SharedPtr&&r) {//конструктор перемещения
+SharedPtr<T>::SharedPtr(SharedPtr&&r) { //конструктор перемещения
   count = nullptr;
   *this=std::move(r);
 }
 
 template<typename T>
-SharedPtr<T>::~SharedPtr() {//деструктор
+SharedPtr<T>::~SharedPtr() { //деструктор
   if (count == nullptr)
     return;
-  (count)--;//если счетчик ссылок не пуст, вычитаем единицу из счетчика
-  if (count == 0) {//если ссылки закончились, удаляем счетчик и очищаем память
+  (count)--; //если счетчик ссылок не пуст, вычитаем единицу из счетчика
+  if (count == 0) { //если ссылки закончились, удаляем счетчик и очищаем память
     delete p;
     delete count;
   }
 }
 
 template<typename T>
-auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& {//перегрузка оператора = (копирование)
+auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& { //перегрузка оператора = (копирование)
   if(this==&r)
     return *this;
 
@@ -87,7 +88,7 @@ auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& {//перегру�
 }
 
 template<typename T>
-auto SharedPtr<T>::operator=(SharedPtr&&r) -> SharedPtr& {//перегрузка оператора = (пермещение)
+auto SharedPtr<T>::operator=(SharedPtr&&r) -> SharedPtr& { //перегрузка оператора = (пермещение)
   if(this==&r)
     return *this;
 
@@ -107,12 +108,12 @@ SharedPtr<T>::operator bool() const {
 }
 
 template<typename T>
-auto SharedPtr<T>::operator*() const -> T & {//перегрузка *
+auto SharedPtr<T>::operator*() const -> T & { //перегрузка *
   return *p;
 }
 
 template<typename T>
-auto SharedPtr<T>::operator->() const -> T * {//перегрузка ->
+auto SharedPtr<T>::operator->() const -> T * { //перегрузка ->
   return p;
 }
 
@@ -122,12 +123,12 @@ auto SharedPtr<T>::get() -> T * {//возвращение указателя
 }
 
 template<typename T>
-void SharedPtr<T>::reset() {//сброс
+void SharedPtr<T>::reset() { //сброс
   *this= SharedPtr();
 }
 
 template<typename T>
-void SharedPtr<T>::reset(T *ptr) {//сброс
+void SharedPtr<T>::reset(T *ptr) { //сброс
   *this= SharedPtr(ptr);
 }
 
