@@ -10,7 +10,6 @@
 
 template <typename T>
 class SharedPtr {
-
  private:
   T* p; //указатель
   std::atomic_uint* count; //счетчик указателей
@@ -40,14 +39,15 @@ class SharedPtr {
 
 template<typename T>
 SharedPtr<T>::SharedPtr() { //конструктор по умолчанию
-  p= nullptr;
-  count = nullptr;
+  p = nullptr;
+  count= nullptr;
 }
 
 template<typename T>
 SharedPtr<T>::SharedPtr(T *ptr) { //конструктор
-  p= ptr;
-  count = new std::atomic_uint{1}; //при создании первого объекта создается счетчик ссылок
+  p = ptr;
+  count = new std::atomic_uint{1};
+  //при создании первого объекта создается счетчик ссылок
 }
 
 template<typename T>
@@ -80,8 +80,8 @@ auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& { //перегру
 
   this->~SharedPtr();
 
-  p=r.p;
-  count =r.count;
+  p = r.p;
+  count = r.count;
   (*count)++;
 
   return *this;
@@ -94,10 +94,10 @@ auto SharedPtr<T>::operator=(SharedPtr&&r) -> SharedPtr& { //перегрузк�
 
   this->~SharedPtr();
 
-  p=r.p;
-  count =r.count;
+  p = r.p;
+  count = r.count;
   r.count = nullptr;
-  r.p= nullptr;
+  r.p = nullptr;
 
   return *this;
 }
@@ -124,12 +124,12 @@ auto SharedPtr<T>::get() -> T * {//возвращение указателя
 
 template<typename T>
 void SharedPtr<T>::reset() { //сброс
-  *this= SharedPtr();
+  *this = SharedPtr();
 }
 
 template<typename T>
 void SharedPtr<T>::reset(T *ptr) { //сброс
-  *this= SharedPtr(ptr);
+  *this = SharedPtr(ptr);
 }
 
 template<typename T>
