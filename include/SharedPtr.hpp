@@ -40,7 +40,7 @@ class SharedPtr {
 template<typename T>
 SharedPtr<T>::SharedPtr() { //конструктор по умолчанию
   p = nullptr;
-  count= nullptr;
+  count = nullptr;
 }
 
 template<typename T>
@@ -53,13 +53,13 @@ SharedPtr<T>::SharedPtr(T *ptr) { //конструктор
 template<typename T>
 SharedPtr<T>::SharedPtr(const SharedPtr&r) { //конструктор копирования
   count = nullptr;
-  *this=r;
+  *this = r;
 }
 
 template<typename T>
 SharedPtr<T>::SharedPtr(SharedPtr&&r) { //конструктор перемещения
   count = nullptr;
-  *this=std::move(r);
+  *this = std::move(r);
 }
 
 template<typename T>
@@ -74,8 +74,9 @@ SharedPtr<T>::~SharedPtr() { //деструктор
 }
 
 template<typename T>
-auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& { //перегрузка оператора = (копирование)
-  if(this==&r)
+auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& {
+  //перегрузка оператора = (копирование)
+  if (this == &r)
     return *this;
 
   this->~SharedPtr();
@@ -88,8 +89,9 @@ auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& { //перегру
 }
 
 template<typename T>
-auto SharedPtr<T>::operator=(SharedPtr&&r) -> SharedPtr& { //перегрузка оператора = (пермещение)
-  if(this==&r)
+auto SharedPtr<T>::operator = (SharedPtr&&r) -> SharedPtr& {
+  //перегрузка оператора = (пермещение)
+  if (this == &r)
     return *this;
 
   this->~SharedPtr();
@@ -143,7 +145,7 @@ void SharedPtr<T>::swap(SharedPtr&r) {//подмена
 
 template<typename T>
 auto SharedPtr<T>::use_count() const -> size_t {
-  if(count != nullptr)
+  if (count != nullptr)
     return *count;
   else
     return 0;
