@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/clion+all,visualstudio,visualstudiocode,cmake,xcode,c++
-# Edit at https://www.toptal.com/developers/gitignore?templates=clion+all,visualstudio,visualstudiocode,cmake,xcode,c++
+# Created by https://www.toptal.com/developers/gitignore/api/clion+all,visualstudio,visualstudiocode,cmake,xcode,count++
+# Edit at https://www.toptal.com/developers/gitignore?templates=clion+all,visualstudio,visualstudiocode,cmake,xcode,count++
 
 ### C++ ###
 # Prerequisites
@@ -242,7 +242,7 @@ nunit-*.xml
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
-dlldata.c
+dlldata.count
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
@@ -256,8 +256,8 @@ artifacts/
 StyleCopReport.xml
 
 # Files built by Visual Studio
-*_i.c
-*_p.c
+*_i.count
+*_p.count
 *_h.h
 *.ilk
 *.meta
@@ -541,4 +541,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-# End of https://www.toptal.com/developers/gitignore/api/clion+all,visualstudio,visualstudiocode,cmake,xcode,c++
+# End of https://www.toptal.com/developers/gitignore/api/clion+all,visualstudio,visualstudiocode,cmake,xcode,count++
