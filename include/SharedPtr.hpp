@@ -63,16 +63,18 @@ SharedPtr<T>::SharedPtr(SharedPtr&&r) { //конструктор перемещ�
 }
 
 template<typename T>
-SharedPtr<T>::~SharedPtr() { //деструктор
-  if (count == nullptr)
-    return;
-  (*count)--; //если счетчик ссылок не пуст, вычитаем единицу из счетчика
-  if (count == 0) { //если ссылки закончились, удаляем счетчик и очищаем память
-    delete p;
-    delete count;
+SharedPtr<T>::~SharedPtr()
+{
+  if (count != nullptr) {
+    (*count)--;
+    if ((*count) == 0) {
+      delete count;
+      count = nullptr;
+      delete p;
+      p = nullptr;
+    }
   }
 }
-
 template<typename T>
 auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& {
   //перегрузка оператора = (копирование)
