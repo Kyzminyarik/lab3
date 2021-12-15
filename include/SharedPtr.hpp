@@ -96,7 +96,7 @@ auto SharedPtr<T>::operator=(SharedPtr&& r) -> SharedPtr&{
   if (this != &r) {
     this->~SharedPtr();
     p = std::move(r.p);
-    count = std::move( r.count);
+    count = std::move(r.count);
   }
   return *this;
 }
