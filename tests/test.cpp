@@ -24,16 +24,7 @@ TEST(SharedPtr, CopyConstructor) {
   EXPECT_EQ(p2.use_count(), 2);
 }
 
-TEST(SharedPtr, MoveConstructor) {
-  SharedPtr p(SharedPtr(new int(7)));
-  EXPECT_EQ(*p, 7);
-  EXPECT_EQ(p.use_count(), 1);
-  SharedPtr p1(new int (0));
-  SharedPtr p2(std::move(p1));
-  EXPECT_EQ(*p2, 0);
-  EXPECT_EQ(p1.get(), nullptr);
-  EXPECT_EQ(p2.use_count(), 1);
-}
+
 
 TEST(SharedPtr, Equal) {
   SharedPtr p(new int(10));
