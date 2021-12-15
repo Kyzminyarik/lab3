@@ -57,9 +57,10 @@ SharedPtr<T>::SharedPtr(const SharedPtr&r) { //конструктор копир
 }
 
 template<typename T>
-SharedPtr<T>::SharedPtr(SharedPtr&&r) { //конструктор перемещения
-  count = nullptr;
-  *this = std::move(r);
+SharedPtr<T>::SharedPtr(SharedPtr&& r)
+{
+  p = std::move(r.p);
+  count = std::move(r.count);
 }
 
 template<typename T>
@@ -91,18 +92,12 @@ auto SharedPtr<T>::operator=(const SharedPtr&r) -> SharedPtr& {
 }
 
 template<typename T>
-auto SharedPtr<T>::operator = (SharedPtr&&r) -> SharedPtr& {
-  //перегрузка оператора = (пермещение)
-  if (this == &r)
-    return *this;
-
-  this->~SharedPtr();
-
-  p = r.p;
-  count = r.count;
-  r.count = nullptr;
-  r.p = nullptr;
-
+auto SharedPtr<T>::operator=(SharedPtr&& r) -> SharedPtr&{
+  if (this != &r) {
+    this->~SharedPtr();
+    p = std::move(r.p);
+    count = std::move( r.count);
+  }
   return *this;
 }
 // проверяет, указывает ли указатель на объект
