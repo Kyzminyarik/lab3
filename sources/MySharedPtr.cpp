@@ -1,6 +1,6 @@
 // Copyright 2021 Your Name <your_email>
 
-#include <SharedPtr.hpp>
+#include <MySharedPtr.hpp>
 #include <stdexcept>
 
 auto example() -> void {
